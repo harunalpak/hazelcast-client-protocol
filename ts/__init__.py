@@ -22,14 +22,14 @@ ts_ignore_service_list = {"MC", "ExecutorService", "TransactionalMap", "Transact
 def ts_types_encode(key):
     ts_type = _ts_types[key]
     if ts_type == 'NA':
-        raise NotImplementedError('MissingTypeMapping')
+        raise NotImplementedError('MissingTypeMapping ' + key + ' is missing')
     return ts_type
 
 
 def ts_types_decode(key):
     ts_type = _ts_types[key]
     if ts_type == 'NA':
-        raise NotImplementedError('MissingTypeMapping')
+        raise NotImplementedError('MissingTypeMapping ' + key + ' is missing')
     return ts_type
 
 
@@ -111,6 +111,7 @@ class PathHolders:
     ListLongCodec = ImportPathHolder('ListLongCodec', 'builtin/ListLongCodec', is_builtin_codec=True)
     ListIntegerCodec = ImportPathHolder('ListIntegerCodec', 'builtin/ListIntegerCodec', is_builtin_codec=True)
     ListUUIDCodec = ImportPathHolder('ListUUIDCodec', 'builtin/ListUUIDCodec', is_builtin_codec=True)
+    SetUUIDCodec = ImportPathHolder('SetUUIDCodec', 'builtin/SetUUIDCodec', is_builtin_codec=True)
     ListDataCodec = ImportPathHolder('ListDataCodec', 'builtin/ListDataCodec', is_builtin_codec=True)
     ListMultiFrameCodec = ImportPathHolder('ListMultiFrameCodec', 'builtin/ListMultiFrameCodec', is_builtin_codec=True)
     EntryListCodec = ImportPathHolder('EntryListCodec', 'builtin/EntryListCodec', is_builtin_codec=True)
@@ -156,6 +157,7 @@ class PathHolders:
     FieldDescriptorCodec = ImportPathHolder('FieldDescriptorCodec', 'custom/FieldDescriptorCodec', is_custom_codec=True)
     HazelcastJsonValue = ImportPathHolder('HazelcastJsonValue', 'core/HazelcastJsonValue')
     HazelcastJsonValueCodec = ImportPathHolder('HazelcastJsonValueCodec', 'custom/HazelcastJsonValueCodec', is_custom_codec=True)
+
 
 import_paths = {
     'CodecUtil': PathHolders.CodecUtil,
@@ -211,6 +213,7 @@ import_paths = {
     'SqlColumnMetadata': [PathHolders.SqlColumnMetadata, PathHolders.SqlColumnMetadataCodec],
     'SqlError': [PathHolders.SqlErrorCodec, PathHolders.SqlError],
     'SqlQueryId': [PathHolders.SqlQueryIdCodec, PathHolders.SqlQueryId],
+    'Set_UUID': [PathHolders.SetUUIDCodec, PathHolders.UUID],
     'List_SqlColumnMetadata': [PathHolders.SqlColumnMetadataCodec, PathHolders.SqlColumnMetadata, PathHolders.ListMultiFrameCodec],
     'SqlPage': [PathHolders.SqlPage, PathHolders.SqlPageCodec],
     'Schema': [PathHolders.Schema, PathHolders.SchemaCodec],
@@ -280,6 +283,14 @@ _ts_types = {
     'HazelcastJsonValue': 'HazelcastJsonValue',
     "CPMember": "NA",
     "MigrationState": "NA",
+    "BTreeIndexConfig": "NA",
+    "DataPersistenceConfig": "NA",
+    "Capacity": "NA",
+    "MemoryTierConfig": "NA",
+    "DiskTierConfig": "NA",
+    "TieredStoreConfig": "NA",
+    "SqlSummary": "NA",
+    "JobAndSqlSummary": "NA",
 
     "List_Long": "Long[]",
     "List_Integer": "number[]",
@@ -322,5 +333,5 @@ _ts_types = {
     "Map_String_String": "Map<string, string>",
     "Map_EndpointQualifier_Address": "Map<EndpointQualifier, AddressImpl>",
 
-    "Set_UUID": "NA",
+    "Set_UUID": "Set<UUID>",
 }
